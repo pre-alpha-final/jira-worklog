@@ -9,6 +9,7 @@
 				{
 					<th>@dateTime.Day.ToString("00")/@dateTime.Month.ToString("00")</th>
 				}
+				<th>Total&nbsp;time</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -17,6 +18,7 @@
 				{
 					<td class="@Model.GetClass(dateTime)">@Html.Raw(Model.GetWorklog(dateTime))</td>
 				}
+				<td class="totalhours">6h:&nbsp;@Model.Hours6<br />8h:&nbsp;@Model.Hours8</td>
 			</tr>
 		</tbody>
 	</table>

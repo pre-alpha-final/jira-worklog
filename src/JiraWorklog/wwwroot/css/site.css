@@ -14,6 +14,11 @@ tr td {
 	color: #111;
 }
 
+.totalhours {
+	color: #eee;
+	padding-left: 10px;
+}
+
 .na {
 	padding-left: 0px !important;
 	padding-right: 100px !important;

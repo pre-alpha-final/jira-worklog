@@ -13,6 +13,9 @@ namespace JiraWorklog.Pages
 		public DateTime To { get; set; }
 		public IList<JiraWorklogItem> JiraWorklogItems { get; set; }
 
+		public string Hours6 => JiraWorklogItems.Select(e => e.Hours).Sum().ToString();
+		public string Hours8 => (JiraWorklogItems.Select(e => e.Hours).Sum() * 8 / 6).ToString();
+
 		public IList<DateTime> DateTimes
 		{
 			get
