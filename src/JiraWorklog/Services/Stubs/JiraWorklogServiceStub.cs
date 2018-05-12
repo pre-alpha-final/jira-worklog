@@ -9,7 +9,7 @@ namespace JiraWorklog.Services.Stubs
 	{
 		private const int Days = 40;
 
-		private List<string> Names = new List<string>
+		private List<string> Persons = new List<string>
 		{
 			"John Doe",
 			"Jane Doe",
@@ -28,7 +28,7 @@ namespace JiraWorklog.Services.Stubs
 		{
 			var jiraWorklogItems = new List<JiraWorklogItem>();
 
-			foreach (var name in Names)
+			foreach (var person in Persons)
 			{
 				for (int day = 0; day < Days; day++)
 				{
@@ -37,23 +37,23 @@ namespace JiraWorklog.Services.Stubs
 					switch (workHours)
 					{
 						case WorkHours.Six:
-							jiraWorklogItems.Add(GetJiraWorklogItem(name, 6, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 6, day));
 							break;
 						case WorkHours.ThreePlusThree:
-							jiraWorklogItems.Add(GetJiraWorklogItem(name, 3, day));
-							jiraWorklogItems.Add(GetJiraWorklogItem(name, 3, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 3, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 3, day));
 							break;
 						case WorkHours.TwoPlusTwoPlusTwo:
-							jiraWorklogItems.Add(GetJiraWorklogItem(name, 2, day));
-							jiraWorklogItems.Add(GetJiraWorklogItem(name, 2, day));
-							jiraWorklogItems.Add(GetJiraWorklogItem(name, 2, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 2, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 2, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 2, day));
 							break;
 						case WorkHours.TwoPlusTwo:
-							jiraWorklogItems.Add(GetJiraWorklogItem(name, 2, day));
-							jiraWorklogItems.Add(GetJiraWorklogItem(name, 2, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 2, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 2, day));
 							break;
 						case WorkHours.Five:
-							jiraWorklogItems.Add(GetJiraWorklogItem(name, 5, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 5, day));
 							break;
 					}
 				}
@@ -70,7 +70,7 @@ namespace JiraWorklog.Services.Stubs
 				Person = person,
 				Task = $"PNP-{random.Next() % 10000}",
 				Hours = hours,
-				DateTime = DateTime.Now - TimeSpan.FromDays(Days + day)
+				DateTime = DateTime.Now - TimeSpan.FromDays(Days - day)
 			};
 		}
 	}
