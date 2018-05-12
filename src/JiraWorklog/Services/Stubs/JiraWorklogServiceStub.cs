@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JiraWorklog.Infrastructure;
@@ -20,7 +20,7 @@ namespace JiraWorklog.Services.Stubs
 			Six,
 			ThreePlusThree,
 			TwoPlusTwoPlusTwo,
-			TwoPlusTwo,
+			FivePlusOne,
 			Five,
 		}
 
@@ -30,8 +30,14 @@ namespace JiraWorklog.Services.Stubs
 
 			foreach (var person in Persons)
 			{
-				for (int day = 0; day < Days; day++)
+				for (int day = 1; day <= Days; day++)
 				{
+					var dayOfWeek = (DateTime.Now - TimeSpan.FromDays(Days - day)).DayOfWeek;
+					if (dayOfWeek == DayOfWeek.Saturday || dayOfWeek == DayOfWeek.Sunday)
+					{
+						continue;
+					}
+
 					var random = new Random((int)DateTime.Now.Ticks);
 					var workHours = (WorkHours)(random.Next() % 5);
 					switch (workHours)
@@ -48,9 +54,9 @@ namespace JiraWorklog.Services.Stubs
 							jiraWorklogItems.Add(GetJiraWorklogItem(person, 2, day));
 							jiraWorklogItems.Add(GetJiraWorklogItem(person, 2, day));
 							break;
-						case WorkHours.TwoPlusTwo:
-							jiraWorklogItems.Add(GetJiraWorklogItem(person, 2, day));
-							jiraWorklogItems.Add(GetJiraWorklogItem(person, 2, day));
+						case WorkHours.FivePlusOne:
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 5, day));
+							jiraWorklogItems.Add(GetJiraWorklogItem(person, 1, day));
 							break;
 						case WorkHours.Five:
 							jiraWorklogItems.Add(GetJiraWorklogItem(person, 5, day));
@@ -65,10 +71,12 @@ namespace JiraWorklog.Services.Stubs
 		private JiraWorklogItem GetJiraWorklogItem(string person, int hours, int day)
 		{
 			var random = new Random((int)DateTime.Now.Ticks);
+			var task = $"PNP-{random.Next() % 10000}";
 			return new JiraWorklogItem
 			{
 				Person = person,
-				Task = $"PNP-{random.Next() % 10000}",
+				Task = task,
+				TaskLink = $"https://www.google.com/search?q={task}",
 				Hours = hours,
 				DateTime = DateTime.Now - TimeSpan.FromDays(Days - day)
 			};

@@ -15,17 +15,38 @@ tr td {
 }
 
 .na {
+	padding-left: 0px !important;
+	padding-right: 100px !important;
 	background-color: gray;
 }
 
 .ok {
+	padding: 10px !important;
 	background-color: greenyellow;
 }
 
 .notok {
+	padding: 10px !important;
 	background-color: red;
 }
 
 .now {
+	padding: 10px !important;
 	background-color: yellow;
 }
+
+a:link {
+	color: #111;
+}
+
+a:visited {
+	color: #111;
+}
+
+a:hover {
+	color: hotpink;
+}
+
+a:active {
+	color: #111;
+} 

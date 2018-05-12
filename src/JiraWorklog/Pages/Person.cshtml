@@ -1,51 +1,22 @@
-@page
 @model JiraWorklog.Pages.PersonModel
 
 <div class="row">
-	<h2>Someone</h2>
-	<table class="table">
+	<h3>@Html.Raw(Model.Person)</h3>
+	<table class="table-bordered">
 		<thead>
 			<tr>
-				<th>head1</th>
-				<th>head2</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
-				<th>head3</th>
+				@foreach (var dateTime in Model.DateTimes)
+				{
+					<th>@dateTime.Day.ToString("00")/@dateTime.Month.ToString("00")</th>
+				}
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td class="na">n/a</td>
-				<td class="notok">wrong</td>
-				<td class="ok">ok</td>
-				<td class="now">today</td>
-				<td class="ok">3h/<a href="http://google.com">pnp1234</a><br />3h/<a href="http://google.com">pnp1234</a></td>
+				@foreach (var dateTime in Model.DateTimes)
+				{
+					<td class="@Model.GetClass(dateTime)">@Html.Raw(Model.GetWorklog(dateTime))</td>
+				}
 			</tr>
 		</tbody>
 	</table>

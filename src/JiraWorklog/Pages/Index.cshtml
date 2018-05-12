@@ -4,5 +4,7 @@
 <h1>Jira Worklog</h1>
 <hr />
 
-@await Html.PartialAsync("Person", new PersonModel())
-@await Html.PartialAsync("Person", new PersonModel())
+@foreach (var personModel in Model.PersonModels)
+{
+	@await Html.PartialAsync("Person", personModel)
+}
