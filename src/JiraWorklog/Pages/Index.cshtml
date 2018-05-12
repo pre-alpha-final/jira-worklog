@@ -1,0 +1,10 @@
+@page
+@model IndexModel
+
+<h1>Jira Worklog</h1>
+<hr />
+
+@foreach (var personModel in Model.PersonModels)
+{
+	@await Html.PartialAsync("Person", personModel)
+}
