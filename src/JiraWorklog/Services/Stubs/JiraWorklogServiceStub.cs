@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JiraWorklog.Infrastructure;
+using JiraWorklog.Services.Implementation;
 
 namespace JiraWorklog.Services.Stubs
 {
@@ -66,6 +67,11 @@ namespace JiraWorklog.Services.Stubs
 			}
 
 			return Task.FromResult((IEnumerable<JiraWorklogItem>)jiraWorklogItems);
+		}
+
+		public Task<IEnumerable<IssueWorklog>> FetchWorklogItems(DateTime dateFrom, DateTime dateTo)
+		{
+			throw new NotImplementedException();
 		}
 
 		private JiraWorklogItem GetJiraWorklogItem(string person, int hours, int day)
