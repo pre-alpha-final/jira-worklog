@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JiraWorklog.Infrastructure;
-using JiraWorklog.Services.Implementation;
+using JiraWorklog.Core.DataTransferObjects;
+using JiraWorklog.Core.Services.Implementation;
 
-namespace JiraWorklog.Services.Stubs
+namespace JiraWorklog.Core.Services.Stubs
 {
 	public class JiraWorklogServiceStub : IJiraWorklogService
 	{
@@ -25,9 +25,9 @@ namespace JiraWorklog.Services.Stubs
 			Five,
 		}
 
-		public Task<IEnumerable<JiraWorklogItem>> GetWorklogItems()
+		public Task<IEnumerable<WorklogDto>> GetWorklogItems()
 		{
-			var jiraWorklogItems = new List<JiraWorklogItem>();
+			var jiraWorklogItems = new List<WorklogDto>();
 
 			foreach (var person in Persons)
 			{
@@ -66,7 +66,7 @@ namespace JiraWorklog.Services.Stubs
 				}
 			}
 
-			return Task.FromResult((IEnumerable<JiraWorklogItem>)jiraWorklogItems);
+			return Task.FromResult((IEnumerable<WorklogDto>)jiraWorklogItems);
 		}
 
 		public Task<IEnumerable<IssueWorklog>> FetchWorklogItems(DateTime dateFrom, DateTime dateTo)
@@ -74,11 +74,11 @@ namespace JiraWorklog.Services.Stubs
 			throw new NotImplementedException();
 		}
 
-		private JiraWorklogItem GetJiraWorklogItem(string person, int hours, int day)
+		private WorklogDto GetJiraWorklogItem(string person, int hours, int day)
 		{
 			var random = new Random((int)DateTime.Now.Ticks);
 			var task = $"PNP-{random.Next() % 10000}";
-			return new JiraWorklogItem
+			return new WorklogDto
 			{
 				Person = person,
 				Task = task,

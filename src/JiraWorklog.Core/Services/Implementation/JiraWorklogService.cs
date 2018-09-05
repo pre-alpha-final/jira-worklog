@@ -5,10 +5,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using JiraWorklog.Infrastructure;
+using JiraWorklog.Core.DataTransferObjects;
 using Newtonsoft.Json;
 
-namespace JiraWorklog.Services.Implementation
+namespace JiraWorklog.Core.Services.Implementation
 {
 	public class JiraWorklogService : IJiraWorklogService
 	{
@@ -16,22 +16,22 @@ namespace JiraWorklog.Services.Implementation
 		private const string ProjectCode = "";
 		private const string AuthToken = "";
 
-		public async Task<IEnumerable<JiraWorklogItem>> GetWorklogItems()
+		public async Task<IEnumerable<WorklogDto>> GetWorklogItems()
 		{
 			var jiraItems = await FetchWorklogItems(new DateTime(2018, 5, 1), new DateTime(2018, 5, 31));
-			var workItems = new List<JiraWorklogItem>();
+			var workItems = new List<WorklogDto>();
 
-			foreach (var jiraItem in jiraItems)
-			{
-				workItems.Add(new JiraWorklogItem
-				{
-					DateTime = jiraItem.Date,
-					Hours = jiraItem.TimeSpentSeconds / 3600,
-					Person = jiraItem.Author.DisplayName,
-					Task = jiraItem.Task,
-					TaskLink = string.Format("https://{0}.atlassian.net/browse/{1}", AtlassianAccount, jiraItem.Task)
-				});
-			}
+						foreach (var jiraItem in jiraItems)
+						{
+							workItems.Add(new WorklogDto
+							{
+								DateTime = jiraItem.Date,
+								Hours = jiraItem.TimeSpentSeconds / 3600,
+								Person = jiraItem.Author.DisplayName,
+								Task = jiraItem.Task,
+								TaskLink = $"https://{AtlassianAccount}.atlassian.net/browse/{jiraItem.Task}"
+							});
+						}
 
 			return workItems;
 		}
@@ -44,17 +44,17 @@ namespace JiraWorklog.Services.Implementation
 
 			using (var client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(string.Format("https://{0}.atlassian.net", AtlassianAccount));
+				client.BaseAddress = new Uri($"https://{AtlassianAccount}.atlassian.net");
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 				client.DefaultRequestHeaders.Authorization =
 					new AuthenticationHeaderValue("Basic", AuthToken);
 
 				var seachQuery = new SearchQuery();
-				seachQuery.Jql = string.Format("project = {0} AND updated >= {1} AND updated <= {2} ORDER BY created DESC", ProjectCode, dateFromStr, dateToStr);
+				seachQuery.Jql = $"project = {ProjectCode} AND updated >= {dateFromStr} AND updated <= {dateToStr} ORDER BY created DESC";
 				seachQuery.StartAt = 0;
 				seachQuery.MaxResults = 100;
-				seachQuery.Fields = new [] {"id"};
+				seachQuery.Fields = new[] { "id" };
 
 				var searchQueryContent = ConvertToJsonContent(seachQuery);
 
@@ -67,14 +67,16 @@ namespace JiraWorklog.Services.Implementation
 				foreach (var issue in searchResult.Issues)
 				{
 					Debug.WriteLine("Read issue: " + issue.Key);
-					var issueWorklogResponse = await client.GetAsync(string.Format("rest/api/2/issue/{0}/worklog", issue.Key));
+					var issueWorklogResponse = await client.GetAsync($"rest/api/2/issue/{issue.Key}/worklog");
 					var issueWorklogString = await issueWorklogResponse.Content.ReadAsStringAsync();
 					var issueWorklog = JsonConvert.DeserializeObject<IssueWorklogsResponse>(issueWorklogString);
 					foreach (var log in issueWorklog.Worklogs)
 					{
+						if (log.Date < dateFrom || log.Date > dateTo)
+							continue;
 						log.Task = issue.Key;
+						list.Add(log);
 					}
-					list.AddRange(issueWorklog.Worklogs);
 				}
 			}
 

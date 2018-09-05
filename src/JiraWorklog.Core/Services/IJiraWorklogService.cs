@@ -1,14 +1,15 @@
 using System;
-using JiraWorklog.Infrastructure;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JiraWorklog.Services.Implementation;
+using JiraWorklog.Core.DataTransferObjects;
+using JiraWorklog.Core.Services.Implementation;
 
-namespace JiraWorklog.Services
+namespace JiraWorklog.Core.Services
 {
 	public interface IJiraWorklogService
 	{
-		Task<IEnumerable<JiraWorklogItem>> GetWorklogItems();
+		Task<IEnumerable<WorklogDto>> GetWorklogItems();
 		Task<IEnumerable<IssueWorklog>> FetchWorklogItems(DateTime dateFrom, DateTime dateTo);
+
 	}
 }
