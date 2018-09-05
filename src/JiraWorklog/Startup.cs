@@ -1,5 +1,5 @@
-using JiraWorklog.Services;
-using JiraWorklog.Services.Stubs;
+using JiraWorklog.Core.Services;
+using JiraWorklog.Core.Services.Implementation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +19,7 @@ namespace JiraWorklog
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddSingleton<IJiraWorklogService, JiraWorklogServiceStub>();
+			services.AddSingleton<IJiraWorklogService, JiraWorklogService>();
 
 			services.AddMvc();
 		}

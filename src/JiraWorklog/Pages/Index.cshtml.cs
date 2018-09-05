@@ -1,9 +1,9 @@
-using JiraWorklog.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JiraWorklog.Core.Services;
 
 namespace JiraWorklog.Pages
 {

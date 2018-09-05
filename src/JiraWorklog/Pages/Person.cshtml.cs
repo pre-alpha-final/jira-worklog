@@ -1,8 +1,8 @@
-using JiraWorklog.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JiraWorklog.Core.DataTransferObjects;
 
 namespace JiraWorklog.Pages
 {
@@ -11,7 +11,7 @@ namespace JiraWorklog.Pages
 		public string Person { get; set; }
 		public DateTime From { get; set; }
 		public DateTime To { get; set; }
-		public IList<JiraWorklogItem> JiraWorklogItems { get; set; }
+		public IList<WorklogDto> JiraWorklogItems { get; set; }
 
 		public string Hours6 => JiraWorklogItems.Select(e => e.Hours).Sum().ToString();
 		public string Hours8 => (JiraWorklogItems.Select(e => e.Hours).Sum() * 8 / 6).ToString();

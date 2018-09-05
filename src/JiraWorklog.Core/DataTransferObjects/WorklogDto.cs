@@ -1,8 +1,8 @@
 using System;
 
-namespace JiraWorklog.Infrastructure
+namespace JiraWorklog.Core.DataTransferObjects
 {
-	public class JiraWorklogItem
+	public class WorklogDto
 	{
 		public string Person { get; set; }
 		public string Task { get; set; }
