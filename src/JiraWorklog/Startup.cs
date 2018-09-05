@@ -1,6 +1,5 @@
-using JiraWorklog.Services;
-using JiraWorklog.Services.Implementation;
-using JiraWorklog.Services.Stubs;
+using JiraWorklog.Core.Services;
+using JiraWorklog.Core.Services.Implementation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

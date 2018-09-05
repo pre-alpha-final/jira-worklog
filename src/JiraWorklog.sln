@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraWorklog", "JiraWorklog\JiraWorklog.csproj", "{83CB5A17-B747-4DCA-BA24-4EB055FF8154}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraWorklog", "JiraWorklog\JiraWorklog.csproj", "{83CB5A17-B747-4DCA-BA24-4EB055FF8154}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraWorklog.Importer", "JiraWorklog.Importer\JiraWorklog.Importer.csproj", "{FC5F9A06-DF8A-4A95-8C07-1B3D96FE3E2D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraWorklog.Core", "JiraWorklog.Core\JiraWorklog.Core.csproj", "{0E78696E-A982-47AE-BE0E-6FD31C160593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraWorklog.Data.AzureBlob", "JiraWorklog.Data.AzureBlob\JiraWorklog.Data.AzureBlob.csproj", "{36EFAFB1-D8D8-4503-8545-F812E2D6BC14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{83CB5A17-B747-4DCA-BA24-4EB055FF8154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83CB5A17-B747-4DCA-BA24-4EB055FF8154}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83CB5A17-B747-4DCA-BA24-4EB055FF8154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC5F9A06-DF8A-4A95-8C07-1B3D96FE3E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC5F9A06-DF8A-4A95-8C07-1B3D96FE3E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC5F9A06-DF8A-4A95-8C07-1B3D96FE3E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC5F9A06-DF8A-4A95-8C07-1B3D96FE3E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E78696E-A982-47AE-BE0E-6FD31C160593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E78696E-A982-47AE-BE0E-6FD31C160593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E78696E-A982-47AE-BE0E-6FD31C160593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E78696E-A982-47AE-BE0E-6FD31C160593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36EFAFB1-D8D8-4503-8545-F812E2D6BC14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36EFAFB1-D8D8-4503-8545-F812E2D6BC14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36EFAFB1-D8D8-4503-8545-F812E2D6BC14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36EFAFB1-D8D8-4503-8545-F812E2D6BC14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
