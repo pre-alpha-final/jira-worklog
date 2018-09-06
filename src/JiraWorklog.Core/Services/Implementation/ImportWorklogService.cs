@@ -11,14 +11,21 @@ namespace JiraWorklog.Core.Services.Implementation
 {
 	public class ImportWorklogService : IImportWorklogService
 	{
+		private readonly AppSettings _appSettings;
+
+		public ImportWorklogService(AppSettings appSettings)
+		{
+			_appSettings = appSettings;
+		}
+
 		public async Task<IList<IssueWorklog>> Import(DateTime dateFrom, DateTime dateTo)
 		{
 			using (var client = new HttpClient())
 			{
-				client.BaseAddress = new Uri($"https://{AppSettings.AtlassianAccount}.atlassian.net");
+				client.BaseAddress = new Uri($"https://{_appSettings.AtlassianAccount}.atlassian.net");
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 				client.DefaultRequestHeaders.Authorization =
-					new AuthenticationHeaderValue("Basic", AppSettings.AuthToken);
+					new AuthenticationHeaderValue("Basic", _appSettings.AuthToken);
 
 				var searchResult = await PerformSearch(client, dateFrom, dateTo);
 				return await ReadIssues(client, searchResult, dateFrom, dateTo);
@@ -31,7 +38,7 @@ namespace JiraWorklog.Core.Services.Implementation
 			var dateToStr = dateTo.ToString("yyyy-MM-dd");
 
 			var seachQuery = new SearchQuery();
-			seachQuery.Jql = $"project = {AppSettings.ProjectCode} AND updated >= {dateFromStr} AND updated <= {dateToStr} ORDER BY created DESC";
+			seachQuery.Jql = $"project = {_appSettings.ProjectCode} AND updated >= {dateFromStr} AND updated <= {dateToStr} ORDER BY created DESC";
 			seachQuery.StartAt = 0;
 			seachQuery.MaxResults = 100;
 			seachQuery.Fields = new[] { "id" };

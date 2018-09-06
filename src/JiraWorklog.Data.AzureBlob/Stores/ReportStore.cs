@@ -9,15 +9,13 @@ namespace JiraWorklog.Data.AzureBlob.Stores
 {
 	public class ReportStore : IReportStore
 	{
-		private const string ConnectionString = "";
-		private const string BlobContainerName = "";
-
+		private const string BlobContainerName = "worklog";
 		private readonly AzureBlobWrapper _azureBlobWrapper;
 
-		public ReportStore()
+		public ReportStore(string connectionString)
 		{
 			_azureBlobWrapper = new AzureBlobWrapper(
-				ConnectionString,
+				connectionString,
 				BlobContainerName);
 		}
 

@@ -17,11 +17,21 @@ namespace JiraWorklog.Importer
 {
 	public static class ImportFunction
 	{
+		private static AppSettings _appSettings;
+
 		[FunctionName("Import")]
 		public static async Task<IActionResult> Run(
 			[HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, TraceWriter log)
 		{
 			log.Info("Import started");
+			_appSettings = new AppSettings
+			{
+				AtlassianAccount = GetEnvironmentVariable("AppSettings_AtlassianAccount"),
+				AuthToken = GetEnvironmentVariable("AppSettings_AuthToken"),
+				ProjectCode = GetEnvironmentVariable("AppSettings_ProjectCode")
+			};
+
+			log.Info("Config read");
 			var parsedMonth = int.TryParse(req.Query["month"], out var month);
 			var parsedYear = int.TryParse(req.Query["year"], out var year);
 
@@ -46,7 +56,7 @@ namespace JiraWorklog.Importer
 			log.Info($"Import logs between {startDate.ToShortDateString()} " +
 				$"and {endDate.ToShortDateString()}");
 
-			var service = new ImportWorklogService();
+			var service = new ImportWorklogService(_appSettings);
 			var results = await service.Import(startDate, endDate);
 			var count = results.Count();
 			log.Info($"Found {count} worklogs");
@@ -65,11 +75,11 @@ namespace JiraWorklog.Importer
 					Hours = worklog.TimeSpentSeconds / 3600,
 					Person = worklog.Author.DisplayName,
 					Task = worklog.Task,
-					TaskLink = $"https://{AppSettings.AtlassianAccount}.atlassian.net/browse/{worklog.Task}"
+					TaskLink = $"https://{_appSettings.AtlassianAccount}.atlassian.net/browse/{worklog.Task}"
 				});
 			}
 
-			var store = new ReportStore();
+			var store = new ReportStore(GetEnvironmentVariable("WEBSITE_CONTENTAZUREFILECONNECTIONSTRING"));
 			await store.Store(new ReportDto
 			{
 				Month = month,
@@ -78,6 +88,11 @@ namespace JiraWorklog.Importer
 			});
 
 			return list.Count;
+		}
+
+		public static string GetEnvironmentVariable(string name)
+		{
+			return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
 		}
 	}
 }
