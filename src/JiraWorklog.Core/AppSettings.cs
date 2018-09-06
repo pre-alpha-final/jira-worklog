@@ -2,8 +2,8 @@ namespace JiraWorklog.Core
 {
 	public class AppSettings
 	{
-		public const string AtlassianAccount = "";
-		public const string ProjectCode = "";
-		public const string AuthToken = "";
+		public string AtlassianAccount { get; set; }
+		public string ProjectCode { get; set; }
+		public string AuthToken { get; set; }
 	}
 }
