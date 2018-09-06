@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>d751a9c2-3d14-46ee-bbfe-3f972a29089f</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Services\**" />
@@ -19,5 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JiraWorklog.Core\JiraWorklog.Core.csproj" />
+    <ProjectReference Include="..\JiraWorklog.Data.AzureBlob\JiraWorklog.Data.AzureBlob.csproj" />
   </ItemGroup>
 </Project>

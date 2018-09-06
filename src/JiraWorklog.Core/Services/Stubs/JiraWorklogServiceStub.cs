@@ -24,7 +24,7 @@ namespace JiraWorklog.Core.Services.Stubs
 			Five,
 		}
 
-		public Task<IEnumerable<WorklogDto>> GetWorklogItems()
+		public Task<IEnumerable<WorklogDto>> GetWorklogItems(int? month, int? year)
 		{
 			var jiraWorklogItems = new List<WorklogDto>();
 

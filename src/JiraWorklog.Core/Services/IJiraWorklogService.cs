@@ -6,6 +6,6 @@ namespace JiraWorklog.Core.Services
 {
 	public interface IJiraWorklogService
 	{
-		Task<IEnumerable<WorklogDto>> GetWorklogItems();
+		Task<IEnumerable<WorklogDto>> GetWorklogItems(int? month, int? year);
 	}
 }
