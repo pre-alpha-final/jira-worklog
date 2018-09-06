@@ -1,5 +1,7 @@
 using JiraWorklog.Core.Services;
 using JiraWorklog.Core.Services.Implementation;
+using JiraWorklog.Core.Stores;
+using JiraWorklog.Data.AzureBlob.Stores;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,8 @@ namespace JiraWorklog
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddSingleton<IJiraWorklogService, JiraWorklogService>();
+			services.AddTransient<IReportStore>(
+				e => new ReportStore(Configuration.GetConnectionString("WEBSITE_CONTENTAZUREFILECONNECTIONSTRING")));
 
 			services.AddMvc();
 		}

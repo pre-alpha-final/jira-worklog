@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JiraWorklog.Core.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JiraWorklog.Pages
 {
@@ -12,6 +13,12 @@ namespace JiraWorklog.Pages
 		private readonly IJiraWorklogService _jiraWorklogService;
 
 		public List<PersonModel> PersonModels { get; set; } = new List<PersonModel>();
+
+		[BindProperty(SupportsGet = true)]
+		public int? Month { get; set; }
+
+		[BindProperty(SupportsGet = true)]
+		public int? Year { get; set; }
 
 		public IndexModel(IJiraWorklogService jiraWorklogService)
 		{
@@ -22,7 +29,7 @@ namespace JiraWorklog.Pages
 		{
 			try
 			{
-				var items = await _jiraWorklogService.GetWorklogItems();
+				var items = (await _jiraWorklogService.GetWorklogItems(Month, Year)).ToList();
 
 				var sortedByDate = items.Select(e => e.DateTime).ToList();
 				sortedByDate.Sort((a, b) => a.CompareTo(b));
