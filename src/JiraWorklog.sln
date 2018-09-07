@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraWorklog.Importer", "Jir
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraWorklog.Core", "JiraWorklog.Core\JiraWorklog.Core.csproj", "{0E78696E-A982-47AE-BE0E-6FD31C160593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraWorklog.Data.AzureBlob", "JiraWorklog.Data.AzureBlob\JiraWorklog.Data.AzureBlob.csproj", "{36EFAFB1-D8D8-4503-8545-F812E2D6BC14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraWorklog.Data.AzureBlob", "JiraWorklog.Data.AzureBlob\JiraWorklog.Data.AzureBlob.csproj", "{36EFAFB1-D8D8-4503-8545-F812E2D6BC14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
